@@ -5,6 +5,7 @@ from httpx._models import Response
 
 from base.checker import BaseChecker
 
+
 class Checker(BaseChecker):
     ENDPOINT = "https://www.instagram.com/api/v1/web/accounts/web_create_ajax/attempt/"
 

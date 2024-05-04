@@ -3,6 +3,7 @@ from functools import singledispatchmethod
 
 from httpx._types import ProxiesTypes
 
+
 class BaseChecker:
     ENDPOINT = ""
 
