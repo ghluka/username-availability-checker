@@ -1,5 +1,7 @@
 """https://speedrun.com/
 """
+import time
+
 import httpx
 from httpx._models import Response
 
@@ -10,12 +12,14 @@ class Checker(BaseChecker):
     ENDPOINT = "https://www.speedrun.com/api/v2/PutAuthSignup"
 
     @BaseChecker.check.register
-    def _(self, username:str) -> bool:
+    def _(self, username:str) -> str|None:
         payload = {'areaId': '', 'email': 'email@example.com', 'name': username, 'password': 'realpassword123'}
         
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
                 r = client.post(self.ENDPOINT, json=payload)
+            if r.status_code == 429:
+                time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return r.status_code == 200
+        return username if r.status_code == 200 else None

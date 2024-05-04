@@ -1,5 +1,7 @@
 """https://soundcloud.com/
 """
+import time
+
 import httpx
 from httpx._models import Response
 
@@ -10,7 +12,7 @@ class Checker(BaseChecker):
     ENDPOINT = "https://soundcloud.com/"
 
     @BaseChecker.check.register
-    def _(self, username:str) -> bool:
+    def _(self, username:str) -> str|None:
         if not (3 <= len(username) <= 25):
             return False
         elif username.startswith("-") or username.startswith("_"):
@@ -24,5 +26,7 @@ class Checker(BaseChecker):
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
                 r = client.head(f"{self.ENDPOINT}{username}")
+            if r.status_code == 429:
+                time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return r.status_code == 404
+        return username if r.status_code == 404 else None

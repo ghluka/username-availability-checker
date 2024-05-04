@@ -2,9 +2,9 @@ import pathlib
 
 from base.checker import BaseChecker
 
+path = pathlib.Path(__file__).parent.parent.resolve()
 
 def get_checkers() -> list[str]:
-    path = pathlib.Path(__file__).parent.parent.resolve()
     checkers = [
         checker.resolve().as_posix().split("/")[-1].removesuffix(".py").replace("-", ".").capitalize()
         for checker in path.glob("checkers/*.py")

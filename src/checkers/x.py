@@ -1,5 +1,7 @@
 """https://x.com/
 """
+import time
+
 import httpx
 from httpx._models import Response
 
@@ -10,10 +12,12 @@ class Checker(BaseChecker):
     ENDPOINT = "https://api.twitter.com/i/users/username_available.json?username="
 
     @BaseChecker.check.register
-    def _(self, username:str) -> bool:        
+    def _(self, username:str) -> str|None:        
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
                 r = client.get(f"{self.ENDPOINT}{username}")
+            if r.status_code == 429:
+                time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return r.json()["valid"]
+        return username if r.json()["valid"] else None
