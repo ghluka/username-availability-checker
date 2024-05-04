@@ -1,7 +1,9 @@
-from template.checker import BaseChecker
-
+"""https://speedrun.com/
+"""
 import httpx
 from httpx._models import Response
+
+from base.checker import BaseChecker
 
 class Checker(BaseChecker):
     ENDPOINT = "https://www.speedrun.com/api/v2/PutAuthSignup"
