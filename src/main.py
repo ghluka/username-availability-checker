@@ -44,9 +44,8 @@ if __name__ == "__main__":
         r = checker.check(usernames)
         
         hits = []
-        for i, valid in enumerate(r):
-            if valid:
-                hits.append(usernames[i])
+        for valid in r:
+            hits.append(valid)
         
         # save hits
         elapsed = time.perf_counter() - start
