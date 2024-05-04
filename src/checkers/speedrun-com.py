@@ -6,7 +6,7 @@ from httpx._models import Response
 class Checker(BaseChecker):
     ENDPOINT = "https://www.speedrun.com/api/v2/PutAuthSignup"
 
-    @TemplateChecker.check.register
+    @BaseChecker.check.register
     def _(self, username:str) -> bool:
         r = Response(429)
         while r.status_code == 429:
