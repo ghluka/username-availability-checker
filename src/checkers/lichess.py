@@ -1,4 +1,4 @@
-"""https://chess.com/
+"""https://lichess.org/
 """
 import time
 
@@ -9,15 +9,17 @@ from base.checker import BaseChecker
 
 
 class Checker(BaseChecker):
-    ENDPOINT = "https://www.chess.com/callback/user/valid?username="
+    ENDPOINT = "https://lichess.org/api/player/autocomplete?term="
 
     @BaseChecker.check.register
-    def _(self, username:str) -> str|None:        
+    def _(self, username:str) -> str|None: 
+        payload = f"{username}&exists=1"
+
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
-                r = client.get(f"{self.ENDPOINT}{username}")
+                r = client.get(f"{self.ENDPOINT}{payload}")
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return username if r.json()["valid"] else None
+        return username if r.json() == False else None
