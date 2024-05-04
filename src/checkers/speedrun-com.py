@@ -10,10 +10,11 @@ class Checker(BaseChecker):
 
     @BaseChecker.check.register
     def _(self, username:str) -> bool:
+        payload = {'areaId': '', 'email': 'email@example.com', 'name': username, 'password': 'realpassword123'}
+        
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
-                payload = {'areaId': '', 'email': 'email@example.com', 'name': username, 'password': 'realpassword123'}
                 r = client.post(self.ENDPOINT, json=payload)
         
         return r.status_code == 200
