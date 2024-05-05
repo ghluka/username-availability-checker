@@ -9,15 +9,11 @@ from base.checker import BaseChecker
 
 
 class Checker(BaseChecker):
-    ENDPOINT = "https://soundcloud.com/"
+    ENDPOINT = "https://steamcommunity.com/id/"
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        if not (3 < len(username) <= 25):
-            return False
-        elif username.startswith("-") or username.startswith("_"):
-            return False
-        elif username.endswith("-") or username.endswith("_"):
+        if not (2 < len(username) <= 32):
             return False
         elif not all(c.isalnum() and c.isascii() or c in "-_" for c in username):
             return False
@@ -25,8 +21,8 @@ class Checker(BaseChecker):
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
-                r = client.head(f"{self.ENDPOINT}{username}")
+                r = client.get(f"{self.ENDPOINT}{username}")
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return username if r.status_code == 404 else None
+        return username if "The specified profile could not be found." in r.text else None

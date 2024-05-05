@@ -17,7 +17,7 @@ class Checker(BaseChecker):
             return False
         elif username.endswith("-") or username.endswith("-") or "--" in username:
             return False
-        elif not all(c.isalnum() or c in "-" for c in username):
+        elif not all(c.isalnum() and c.isascii() or c in "-" for c in username):
             return False
         
         r = Response(429)

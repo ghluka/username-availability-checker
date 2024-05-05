@@ -13,11 +13,11 @@ class Checker(BaseChecker):
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        if not (2 <= len(username) <= 20):
+        if not (1 < len(username) <= 20):
             return False
         elif username.endswith(".") or username.endswith(".") or ".." in username:
             return False
-        elif not all(c.isalnum() or c in "-_." for c in username):
+        elif not all(c.isalnum() and c.isascii() or c in "-_." for c in username):
             return False
         
         headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0"}

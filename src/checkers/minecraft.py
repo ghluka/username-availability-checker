@@ -1,4 +1,4 @@
-"""https://soundcloud.com/
+"""https://minecraft.net/
 """
 import time
 
@@ -9,19 +9,10 @@ from base.checker import BaseChecker
 
 
 class Checker(BaseChecker):
-    ENDPOINT = "https://soundcloud.com/"
+    ENDPOINT = "https://api.mojang.com/users/profiles/minecraft/"
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        if not (3 < len(username) <= 25):
-            return False
-        elif username.startswith("-") or username.startswith("_"):
-            return False
-        elif username.endswith("-") or username.endswith("_"):
-            return False
-        elif not all(c.isalnum() and c.isascii() or c in "-_" for c in username):
-            return False
-
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
