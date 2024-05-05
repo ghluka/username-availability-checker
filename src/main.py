@@ -39,7 +39,7 @@ if __name__ == "__main__":
         # username checker
         checker = get_checker(name)
 
-        print("Starting...\n")
+        print("Starting...")
         start = time.perf_counter()
         r = checker.check(usernames)
         
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         
         # save hits
         elapsed = time.perf_counter() - start
-        print(f"Done! Took {elapsed:.2f}s\n")
+        print(f"Done! Took {elapsed:.2f}s")
 
         pathlib.Path(f"{path}/hits").mkdir(exist_ok=True)
         with open(f"{path}/hits/hits-{time.strftime('%Y%m%d-%H%M%S')}.txt", "w") as f:
