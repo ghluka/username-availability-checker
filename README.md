@@ -18,20 +18,22 @@ $ pip install -r requirements.txt
 $ python3 main.py
 ```
 
-## 📃 Supported websites
+## 📃 Supported websites <!-- Websites start -->[15 total]
 
-- Chess.com
-- GitHub
-- GitLab
-- Instagram
-- Kahoot
-- Lichess
-- Minecraft
-- Replit
-- Roblox
-- Solo.to
-- Soundcloud
-- Speedrun.com
-- Steam
-- Twitch
-- X
+- [Chess.com](https://chess.com/)
+- [Github](https://github.com/)
+- [Gitlab](https://gitlab.com/)
+- [Instagram](https://instagram.com/)
+- [Kahoot](https://kahoot.it/)
+- [Lichess](https://lichess.org/)
+- [Minecraft](https://minecraft.net/)
+- [Replit](https://repl.it/)
+- [Roblox](https://roblox.com/)
+- [Solo.to](https://solo.to/)
+- [Soundcloud](https://soundcloud.com/)
+- [Speedrun.com](https://speedrun.com/)
+- [Steam](https://soundcloud.com/)
+- [Twitch](https://twitch.tv/)
+- [X](https://x.com/)
+
+<!-- Websites end -->
