@@ -13,7 +13,7 @@ class BaseChecker:
         self.max_workers = max_workers
 
     @singledispatchmethod
-    def check(self, username) -> str|None:
+    def check(self) -> str|None:
         """Checks if username is available"""
         raise NotImplementedError
     

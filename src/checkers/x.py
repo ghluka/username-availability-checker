@@ -19,5 +19,8 @@ class Checker(BaseChecker):
                 r = client.get(f"{self.ENDPOINT}{username}")
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
+            elif not r.json().get("valid"):
+                r = Response(429) # API failed to respond, retry.
         
+        print(r.json())
         return username if r.json()["valid"] else None

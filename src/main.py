@@ -1,58 +1,42 @@
 import pathlib
 import time
-import tkinter as tk
-from tkinter import filedialog
 
-from utils.checkers import get_checker, get_checkers, path
-from utils.output import clear, print_columns
+from utils.checkers import get_checker, path
+from utils.output import clear, title
+from utils.prompts import select_checker, select_usernames
 
-if __name__ == "__main__":
+
+def main():
+    clear()
+    title()
     try:
-        # service selector
-        clear()
-        print("Checkers:")
-        checkers = get_checkers()
-        print_columns(checkers, start="  ", end="\n\n")
+        # Service selector
+        checker_name = select_checker()
+        print(f"\nSelected {checker_name.capitalize()}.")
+        checker = get_checker(checker_name)
 
-        name = input("Which checker do you want to use: ")
-        while name.capitalize() not in checkers:
-            print(" Invalid checker! Try again.\n")
-            name = input("Which checker do you want to use: ")
-        print(f"\nSelected {name.capitalize()}.\n")
+        # Username list selector
+        usernames = select_usernames()
+        print(f"\nSelected {len(usernames)} usernames from list.")
 
-        # TODO: Add selection for proxies, thread workers, etc...
+        # TODO: Prompt user for proxies and amount of threads
 
-        # username list selector
-        root = tk.Tk()
-        root.wm_attributes('-topmost', 1)
-        root.withdraw()
-        file = filedialog.askopenfilename(
-            initialdir=f"{path}/presets",
-            filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
-        )
-        if not file:
-            exit()
-        with open(file) as f:
-            usernames = f.read().splitlines()
-        print(f"Selected \"{file}\".\n")
-
-        # username checker
-        checker = get_checker(name)
-
-        print("Starting...")
+        # Get hits
+        print("\nStarting...")
         start = time.perf_counter()
-        r = checker.check(usernames)
-        
-        hits = []
-        for valid in r:
-            hits.append(valid)
-        
-        # save hits
+        hits = [r for r in checker.check(usernames)]
         elapsed = time.perf_counter() - start
         print(f"Done! Took {elapsed:.2f}s")
 
+        # Save hits
         pathlib.Path(f"{path}/hits").mkdir(exist_ok=True)
-        with open(f"{path}/hits/{name.lower()}-{time.strftime('%Y%m%d-%H%M%S')}.txt", "w") as f:
+        output_name = f"{checker_name.lower()}-{time.strftime('%Y%m%d-%H%M%S')}"
+        with open(f"{path}/hits/{output_name}.txt", "w") as f:
             f.writelines("\n".join(hits))
     except (KeyboardInterrupt, EOFError):
-        print("\nGoodbye!")
+        pass
+    print("\nGoodbye!")
+
+
+if __name__ == "__main__":
+    main()
