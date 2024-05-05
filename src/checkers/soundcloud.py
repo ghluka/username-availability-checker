@@ -14,13 +14,13 @@ class Checker(BaseChecker):
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
         if not (3 < len(username) <= 25):
-            return False
+            return None
         elif username.startswith("-") or username.startswith("_"):
-            return False
+            return None
         elif username.endswith("-") or username.endswith("_"):
-            return False
+            return None
         elif not all(c.isalnum() and c.isascii() or c in "-_" for c in username):
-            return False
+            return None
 
         r = Response(429)
         while r.status_code == 429:

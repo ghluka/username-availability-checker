@@ -14,9 +14,9 @@ class Checker(BaseChecker):
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
         if not (2 < len(username) <= 32):
-            return False
+            return None
         elif not all(c.isalnum() and c.isascii() or c in "-_" for c in username):
-            return False
+            return None
 
         r = Response(429)
         while r.status_code == 429:

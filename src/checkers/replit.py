@@ -1,4 +1,4 @@
-"""https://github.com/
+"""https://repl.it/
 """
 import time
 
@@ -9,21 +9,21 @@ from base.checker import BaseChecker
 
 
 class Checker(BaseChecker):
-    ENDPOINT = "https://github.com/"
+    ENDPOINT = "https://replit.com/@"
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        if len(username) > 39:
+        if not (2 < len(username) <= 15):
             return None
-        elif username.endswith("-") or username.endswith("-") or "--" in username:
+        elif "--" in username:
             return None
         elif not all(c.isalnum() and c.isascii() or c in "-" for c in username):
             return None
-        
+
         r = Response(429)
         while r.status_code == 429:
             with httpx.Client(verify=False, proxies=self.proxies) as client:
-                r = client.get(f"{self.ENDPOINT}{username}")
+                r = client.head(f"{self.ENDPOINT}{username}")
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         

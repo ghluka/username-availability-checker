@@ -52,7 +52,7 @@ if __name__ == "__main__":
         print(f"Done! Took {elapsed:.2f}s")
 
         pathlib.Path(f"{path}/hits").mkdir(exist_ok=True)
-        with open(f"{path}/hits/hits-{time.strftime('%Y%m%d-%H%M%S')}.txt", "w") as f:
+        with open(f"{path}/hits/{name.lower()}-{time.strftime('%Y%m%d-%H%M%S')}.txt", "w") as f:
             f.writelines("\n".join(hits))
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
