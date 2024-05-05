@@ -17,3 +17,21 @@ $ pip install -r requirements.txt
 # Run main script
 $ python3 main.py
 ```
+
+## 📃 Supported websites
+
+- Chess.com
+- GitHub
+- GitLab
+- Instagram
+- Kahoot
+- Lichess
+- Minecraft
+- Replit
+- Roblox
+- Solo.to
+- Soundcloud
+- Speedrun.com
+- Steam
+- Twitch
+- X
