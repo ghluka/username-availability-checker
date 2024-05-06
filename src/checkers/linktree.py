@@ -14,7 +14,7 @@ class Checker(BaseChecker):
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0"}
-        payload = {"username": username, "returnSuggestions": True}
+        payload = {"username": username, "returnSuggestions": False}
 
         r = Response(429)
         while r.status_code == 429:
