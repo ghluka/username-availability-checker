@@ -18,7 +18,7 @@ $ pip install -r requirements.txt
 $ python3 main.py
 ```
 
-## 📃 Supported websites <!-- Websites start -->[15 total]
+## 📃 Supported websites <!-- Websites start -->[16 total]
 
 - [Chess.com](https://chess.com/)
 - [Github](https://github.com/)
@@ -26,6 +26,7 @@ $ python3 main.py
 - [Instagram](https://instagram.com/)
 - [Kahoot](https://kahoot.it/)
 - [Lichess](https://lichess.org/)
+- [Linktree](https://linktr.ee/)
 - [Minecraft](https://minecraft.net/)
 - [Replit](https://repl.it/)
 - [Roblox](https://roblox.com/)
