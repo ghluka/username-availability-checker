@@ -18,8 +18,9 @@ $ pip install -r requirements.txt
 $ python3 main.py
 ```
 
-## 📃 Supported websites <!-- Websites start -->[16 total]
+## 📃 Supported websites <!-- Websites start -->[17 total]
 
+- [Beacons.ai](https://beacons.ai/)
 - [Chess.com](https://chess.com/)
 - [Github](https://github.com/)
 - [Gitlab](https://gitlab.com/)

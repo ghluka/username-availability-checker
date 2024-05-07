@@ -15,7 +15,7 @@ class Checker(BaseChecker):
     def _(self, username:str) -> str|None:
         if len(username) > 39:
             return None
-        elif username.endswith("-") or username.endswith("-") or "--" in username:
+        elif username.startswith("-") or username.endswith("-") or "--" in username:
             return None
         elif not all(c.isalnum() and c.isascii() or c in "-" for c in username):
             return None

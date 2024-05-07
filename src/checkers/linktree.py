@@ -23,5 +23,4 @@ class Checker(BaseChecker):
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         
-        print(r.status_code)
         return username if r.json()["result"] == "success" else None
