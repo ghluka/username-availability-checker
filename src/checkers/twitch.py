@@ -13,7 +13,7 @@ class Checker(BaseChecker):
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        headers={'client-id': 'kimne78kx3ncx6brgo4mv6wki5h1ko'}
+        headers={"client-id": "kimne78kx3ncx6brgo4mv6wki5h1ko"}
         payload = [{"operationName": "UsernameValidator_User", "variables": {"username": username}, "extensions": {"persistedQuery": {"version": 1, "sha256Hash": "fd1085cf8350e309b725cf8ca91cd90cac03909a3edeeedbd0872ac912f3d660"}}}]
 
         r = Response(429)

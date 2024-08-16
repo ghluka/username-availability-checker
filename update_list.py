@@ -4,7 +4,7 @@
 import glob
 
 files = sorted(glob.glob("./src/checkers/*.py", recursive=True))
-with open('README.md', 'r', encoding='utf-8') as f:
+with open("README.md", "r", encoding="utf-8") as f:
     f_text = f.read()
     md = f_text.split("<!-- Websites start -->")[0]
     md += f"<!-- Websites start -->[{len(files)} total]\n"
@@ -16,8 +16,8 @@ with open('README.md', 'r', encoding='utf-8') as f:
         website = file.split("/")[-1].removesuffix(".py").replace("-", ".").capitalize()
         md += f"\n- [{website}]({link})"
     
-    md += '\n\n<!-- Websites end -->'
+    md += "\n\n<!-- Websites end -->"
     md += f_text.split("<!-- Websites end -->")[1]
 
-with open('README.md', 'w', encoding='utf-8') as f:
+with open("README.md", "w", encoding="utf-8") as f:
     f.write(md)

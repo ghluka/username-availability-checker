@@ -13,7 +13,7 @@ class Checker(BaseChecker):
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        payload = {'areaId': '', 'email': 'email@example.com', 'name': username, 'password': 'realpassword123'}
+        payload = {"areaId": "", "email": "email@example.com", "name": username, "password": "realpassword123"}
         
         r = Response(429)
         while r.status_code == 429:

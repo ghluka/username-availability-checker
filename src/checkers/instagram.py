@@ -13,8 +13,8 @@ class Checker(BaseChecker):
 
     @BaseChecker.check.register
     def _(self, username:str) -> str|None:
-        headers = {'X-CSRFToken': 'en'}
-        payload = {'email': '', 'username': username, 'first_name': '', 'opt_into_one_tap': False}
+        headers = {"X-CSRFToken": "en"}
+        payload = {"email": "", "username": username, "first_name": "", "opt_into_one_tap": False}
         
         r = Response(429)
         while r.status_code == 429:
@@ -23,4 +23,4 @@ class Checker(BaseChecker):
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return username if not '"username": [{"message": ' in r.text else None
+        return username if not "\"username\": [{\"message\": " in r.text else None

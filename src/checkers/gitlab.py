@@ -20,4 +20,4 @@ class Checker(BaseChecker):
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
         
-        return username if r.json()['exists'] == False else None
+        return username if r.json()["exists"] == False else None
