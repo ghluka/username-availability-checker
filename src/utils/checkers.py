@@ -1,3 +1,5 @@
+"""Checker modules utils.
+"""
 import pathlib
 
 from base.checker import BaseChecker
@@ -15,9 +17,9 @@ def get_checkers() -> list[str]:
     return checkers
 
 
-def get_checker(name:str) -> BaseChecker:
+def get_checker(name:str, kwargs:dict={}) -> BaseChecker:
     """Imports a checker module and returns it's Checker class"""
     module = __import__(f"checkers.{name.replace('.', '-').lower()}", fromlist=[None])
-    checker = module.Checker()
+    checker = module.Checker(**kwargs)
 
     return checker

@@ -11,11 +11,11 @@ with open("README.md", "r", encoding="utf-8") as f:
 
     for file in files:
         file = file.replace("\\", "/")
-        with open(file, "r") as f:
+        with open(file, "r", encoding="utf8") as f:
             link = f.readlines()[0].strip().removeprefix("\"\"\"")
         website = file.split("/")[-1].removesuffix(".py").replace("-", ".").capitalize()
         md += f"\n- [{website}]({link})"
-    
+
     md += "\n\n<!-- Websites end -->"
     md += f_text.split("<!-- Websites end -->")[1]
 

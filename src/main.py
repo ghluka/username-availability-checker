@@ -1,12 +1,19 @@
+"""User menu for checking username availability.
+"""
+import concurrent.futures
+import itertools
 import pathlib
 import time
 
 from utils.checkers import get_checker, path
 from utils.output import clear, title
-from utils.prompts import select_checker, select_usernames
+from utils.prompts import bool_input, select_checker, select_file
 
 
 def main():
+    """
+    Prompts the user for username data and saves the hits as a file. 
+    """
     clear()
     title()
     try:
@@ -16,25 +23,38 @@ def main():
         checker = get_checker(checker_name)
 
         # Username list selector
-        usernames = select_usernames()
-        print(f"\nSelected {len(usernames)} usernames from list.")
+        print("\nSelect your usernames list.")
+        usernames = select_file()
+        print(f"Selected {len(usernames)} usernames from list.")
 
-        # TODO: Prompt user for proxies and amount of threads
+        # Proxy selector
+        proxies = []
+        if bool_input("\nUse proxies?", False):
+            print("Select your proxy list.")
+            proxies = select_file()
+            print(f"Loaded {len(proxies)} proxies.")
 
         # Get hits
         print("\nStarting...")
         start = time.perf_counter()
-        hits = [r for r in checker.check(usernames)]
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            hits = set(executor.map(checker.check, usernames, itertools.repeat(proxies)))
+        if None in hits:
+            hits.remove(None)
+
         elapsed = time.perf_counter() - start
         print(f"Done! Took {elapsed:.2f}s")
 
         # Save hits
         pathlib.Path(f"{path}/hits").mkdir(exist_ok=True)
         output_name = f"{checker_name.lower()}-{time.strftime('%Y%m%d-%H%M%S')}"
-        with open(f"{path}/hits/{output_name}.txt", "w") as f:
+        with open(f"{path}/hits/{output_name}.txt", "w", encoding="utf8") as f:
             f.writelines("\n".join(hits))
+
     except (KeyboardInterrupt, EOFError):
         pass
+
     print("\nGoodbye!")
 
 

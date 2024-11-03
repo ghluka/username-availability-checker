@@ -12,14 +12,16 @@ class Checker(BaseChecker):
     ENDPOINT = "https://lichess.org/api/player/autocomplete?term="
 
     @BaseChecker.check.register
-    def _(self, username:str) -> str|None: 
+    def _(self, username:str, proxies:str="") -> str|None:
+        proxies = self.get_proxy(proxies)
+
         payload = f"{username}&exists=1"
 
         r = Response(429)
         while r.status_code == 429:
-            with httpx.Client(verify=False, proxies=self.proxies) as client:
+            with httpx.Client(verify=False, proxies=proxies) as client:
                 r = client.get(f"{self.ENDPOINT}{payload}")
             if r.status_code == 429:
                 time.sleep(self.RATELIMIT_TIMEOUT)
-        
-        return username if r.json() == False else None
+
+        return username if r.json() is False else None

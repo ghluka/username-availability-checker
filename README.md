@@ -39,3 +39,9 @@ $ python3 main.py
 - [X](https://x.com/)
 
 <!-- Websites end -->
+
+## 🖇️ Proxy support
+
+We allow the use of proxies, however, if you use public proxies you'll likely encounter an infinite ratelimit from hundreds or thousands of people using the same proxy. Proxies can dramatically speed up or slow down the process depending on their quality.
+
+Proxies should be stored in a format in a `protocol://ip:port` format.
