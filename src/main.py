@@ -5,6 +5,8 @@ import itertools
 import pathlib
 import time
 
+from colorama import Fore
+
 from utils.checkers import get_checker, path
 from utils.output import clear, title
 from utils.prompts import bool_input, select_checker, select_file
@@ -19,20 +21,20 @@ def main():
     try:
         # Service selector
         checker_name = select_checker()
-        print(f"\nSelected {checker_name.capitalize()}.")
+        print(f"\nSelected {Fore.CYAN}{checker_name.capitalize()}{Fore.RESET}.")
         checker = get_checker(checker_name)
 
         # Username list selector
-        print("\nSelect your usernames list.")
+        print(f"\n{Fore.BLUE}>{Fore.RESET} Select your usernames list.")
         usernames = select_file()
-        print(f"Selected {len(usernames)} usernames from list.")
+        print(f"Selected {Fore.CYAN}{len(usernames)}{Fore.RESET} usernames from list.")
 
         # Proxy selector
         proxies = []
         if bool_input("\nUse proxies?", False):
-            print("Select your proxy list.")
+            print(f"{Fore.BLUE}>{Fore.RESET} Select your proxy list.")
             proxies = select_file()
-            print(f"Loaded {len(proxies)} proxies.")
+            print(f"Loaded {Fore.CYAN}{len(proxies)}{Fore.RESET} proxies.")
 
         # Get hits
         print("\nStarting...")
@@ -44,7 +46,7 @@ def main():
             hits.remove(None)
 
         elapsed = time.perf_counter() - start
-        print(f"Done! Took {elapsed:.2f}s")
+        print(f"{Fore.CYAN}Done!{Fore.RESET} Took {elapsed:.2f}s")
 
         # Save hits
         pathlib.Path(f"{path}/hits").mkdir(exist_ok=True)

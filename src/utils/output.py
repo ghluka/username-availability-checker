@@ -2,6 +2,8 @@
 """
 import os
 
+from colorama import Fore
+
 
 def clear() -> None:
     """Clears screen"""
@@ -11,12 +13,15 @@ def clear() -> None:
 def title() -> None:
     """Outputs title as ASCII art"""
     print(
+        Fore.CYAN + \
         "  ██    ██  █████   ██████ \n" \
         "  ██    ██ ██   ██ ██      \n" \
         "  ██    ██ ███████ ██      \n" \
         "  ██    ██ ██   ██ ██      \n" \
         "   ██████  ██   ██  ██████ \n" \
-        "Username Availability Checker" + "\n"
+        + Fore.BLUE + \
+        "Username Availability Checker" + "\n" \
+        + Fore.RESET
     )
 
 
@@ -30,3 +35,9 @@ def print_columns(values:list, columns:int=3, start:str="", end:str="\n") -> Non
         out += f"\n{start}" if i % columns == 0 else "    "
 
     print(out, end=end)
+
+
+if __name__ == "__main__":
+    clear()
+    title()
+    print_columns(["a", "b", "c", "d", "e", "F", "g", "H"])
