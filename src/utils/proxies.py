@@ -1,6 +1,7 @@
 """Proxy utils.
 """
 import httpx
+from colorama import Fore
 
 
 def test_proxy(proxy:str) -> bool:
@@ -23,7 +24,7 @@ def get_proxy(proxies:list) -> dict:
         if test_proxy(proxy):
             return {"http://":f"{proxy}", "https://":f"{proxy}"}
 
-    print("No valid proxy in your provided list! Make sure you're using HTTP proxies and not SOCK5.")
+    print(f"{Fore.RED}No valid proxy in your provided list! Make sure you're using HTTP proxies and not SOCK5.{Fore.RESET}")
     exit(1)
 
 
