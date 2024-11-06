@@ -18,13 +18,10 @@ $ pip install -r requirements.txt
 $ python3 main.py
 ```
 
-## 📃 Supported websites <!-- Websites start -->[17 total]
+## 📃 Supported websites <!-- Websites start -->[13 total]
 
-- [Beacons.ai](https://beacons.ai/)
 - [Chess.com](https://chess.com/)
 - [Github](https://github.com/)
-- [Gitlab](https://gitlab.com/)
-- [Instagram](https://instagram.com/)
 - [Kahoot](https://kahoot.it/)
 - [Lichess](https://lichess.org/)
 - [Linktree](https://linktr.ee/)
@@ -36,7 +33,6 @@ $ python3 main.py
 - [Speedrun.com](https://speedrun.com/)
 - [Steam](https://soundcloud.com/)
 - [Twitch](https://twitch.tv/)
-- [X](https://x.com/)
 
 <!-- Websites end -->
 
